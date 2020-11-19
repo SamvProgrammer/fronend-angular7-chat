@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Cambiar nombre de usuario chat</h2>
+
+<mat-dialog-content [formGroup]="form"   >
+  
+    <mat-form-field>
+        <input matInput
+
+        formControlName="usuario"
+                placeholder="Ingresar usuario nuevo"
+              >
+    </mat-form-field>
+      ....
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="cerrarForm()">Cerrar</button>
+    <button class="mat-raised-button mat-primary" (click)="enviarformulario()">Guardar cambios</button>
+</mat-dialog-actions>

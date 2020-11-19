@@ -1,0 +1,43 @@
+<div class="component">
+  <div *ngIf="chatSeleccionado">
+    <div class="principalchat">
+
+      <mat-list >
+          <div mat-subheader>Mensajeria para RHH</div>
+          <mat-list-item class="estilo" >
+            <div mat-line><span style="font-weight: 400;">Chat</span></div>
+            <div mat-line> {{usuario.nickname}}  </div>
+            <mat-icon mat-list-icon> supervised_user_circle</mat-icon>
+           
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          
+        </mat-list>
+        <mat-list >
+          <div mat-subheader>Mensajes</div>
+          <mat-list-item *ngFor="let item of usuario.historial" [ngClass]="{'recibido':item.quien == 'otro','enviado':item.quien=='yo'}" >
+            <div mat-line> {{item.mensaje}} </div>             
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          
+        </mat-list>
+
+
+  </div>
+  <div class="footerchat">
+      
+          
+          <mat-form-field class="acomodando" appearance="fill">
+              <mat-label>Escribir mensaje</mat-label>
+              <textarea #textoenviar matInput></textarea>
+            </mat-form-field>
+            <mat-icon style="cursor:pointer;" mat-list-icon  (click)="enviandoMensaje(textoenviar)"> send</mat-icon>
+         
+        
+    
+  </div>
+  </div>
+  <div *ngIf="!chatSeleccionado" class="nohay">
+    No hay chat seleccionado
+  </div>
+</div>

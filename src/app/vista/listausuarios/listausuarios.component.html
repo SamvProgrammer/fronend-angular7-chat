@@ -1,0 +1,26 @@
+<mat-tab-group class="componente1" >
+    <mat-tab label="Conectados" > 
+        <mat-form-field class="example-full-width">
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="Contacto a buscar" value="">
+        </mat-form-field>
+        
+        
+        
+        <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+        <mat-list >
+            <div style="background:#b9cad4" mat-subheader>Usuario:  <span style="    font-weight: bold;
+              color: #27508e;">{{usuario.nickname}}</span></div>
+            <div mat-subheader>Contactos</div>
+            <mat-list-item class="estilo" *ngFor="let item of arreglo;let indice = index;" (click)="seleccionarChat(indice)">
+              <mat-icon mat-list-icon matBadge="10" matBadgeColor="warn"> how_to_reg</mat-icon>
+              <div mat-line>{{item.nickname}}</div>
+              <div mat-line> Conectado  </div>
+              <div mat-line-end> Hoy  </div>
+             
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            
+          </mat-list> </mat-tab>
+    <mat-tab label="Conversación"> Conversación </mat-tab>
+  </mat-tab-group>
