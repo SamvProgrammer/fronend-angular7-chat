@@ -11,9 +11,12 @@
         <mat-list >
             <div style="background:#b9cad4" mat-subheader>Usuario:  <span style="    font-weight: bold;
               color: #27508e;">{{usuario.nickname}}</span></div>
-            <div mat-subheader>Contactos</div>
-            <mat-list-item class="estilo" *ngFor="let item of arreglo;let indice = index;" (click)="seleccionarChat(indice)">
-              <mat-icon mat-list-icon matBadge="10" matBadgeColor="warn"> how_to_reg</mat-icon>
+            <div mat-subheader>Contactos ({{arreglo.length}}) Conectados 
+            </div>
+
+            <div mat-subheader> <button mat-flat-button color="accent" (click)="actualiza()">Actualizar chat</button> </div>
+            <mat-list-item style="cursor: pointer;" class="estilo" *ngFor="let item of arreglo;let indice = index;" (click)="seleccionarChat(indice)">
+              <mat-icon mat-list-icon [matBadge]="mensajesenviados(indice)" matBadgeColor="warn"   [matBadgeHidden]="mensajesenviados(indice)==0"> how_to_reg</mat-icon>
               <div mat-line>{{item.nickname}}</div>
               <div mat-line> Conectado  </div>
               <div mat-line-end> Hoy  </div>

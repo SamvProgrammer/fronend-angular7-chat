@@ -52,7 +52,8 @@ export class PrincipalChatComponent implements OnInit {
            mensaje :data.mensaje,
            nickname:data.nickname,
            quien:'otro',
-           paraquien:data.paraquien
+           paraquien:data.paraquien,
+           visto:false
          }
 
          for(let item of usuariosPrd.getarreglo()){

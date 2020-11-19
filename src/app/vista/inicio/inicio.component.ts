@@ -42,9 +42,9 @@ export class InicioComponent implements OnInit {
          this.usuariosPrd.cambiarUsuario(this.usuario).subscribe(respuesta =>{
            if(respuesta.afectado){
               this.usuario.nickname = datos;
+              this.usuario.cambiado = true;
               alertify.success(respuesta.respuesta);
            }else{
-             console.log("Ya existe usuario");
 
              alertify.error(respuesta.respuesta);
            }
