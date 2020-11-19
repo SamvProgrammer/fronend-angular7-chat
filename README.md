@@ -1,3 +1,27 @@
+# Nota del desarrollo en angular
+
+Cabe mencionar que la propuesta a la estructura de la solución es una propuesta mía, los estilos para el diseño en SASS
+lo realize nativamente utilizando angular design en algunos componentes y css (en SASS) para darle el diseño responsivo para
+celulares y computadoras, como un punto extra puedo mencionar que no hice uso de algun framework de desarrollo como boostrap.
+Solo una librería para los websocket...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Chat
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
