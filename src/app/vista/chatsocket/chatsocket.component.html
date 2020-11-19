@@ -13,9 +13,9 @@
           <mat-divider></mat-divider>
           
         </mat-list>
-        <mat-list >
-          <div mat-subheader>Mensajes</div>
-          <mat-list-item *ngFor="let item of usuario.historial" [ngClass]="{'recibido':item.quien == 'otro','enviado':item.quien=='yo'}" >
+        <mat-list #ventanachat class="personalizado" id="ss">
+          <div mat-subheader style="text-align: center;font-size: large;font-weight: bold;">Conversación</div>
+          <mat-list-item  *ngFor="let item of usuario.historial" [ngClass]="{'recibido':item.quien == 'otro','enviado':item.quien=='yo'}" >
             <div mat-line  style="    font-weight: bolder;"> {{(item.quien != 'otro')?'Tu':usuario.nickname}} </div>                       
             <div mat-line> {{item.mensaje}} </div>             
           </mat-list-item>

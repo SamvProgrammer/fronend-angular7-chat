@@ -1,8 +1,14 @@
+
+$pantallamovil: 580px
+    
 .component
     float: left !important
     margin-left:10px
     
-    
+.estilo
+    display: block !important
+    @media only screen and (max-width : $pantallamovil)
+         display: none!important
 
 .footerchat
     background: #f9f9f8
@@ -11,6 +17,8 @@
     position: fixed
     bottom: 0
     border-top: 1px solid #cecece
+    @media only screen and (max-width : $pantallamovil)
+         height: 52px
 
 .headerchat
     background: #f9f9f8
@@ -28,6 +36,8 @@
 
 .acomodando
     width: 60vw
+    @media only screen and (max-width : $pantallamovil)
+         width: 90vw 
     
 
 .recibido
@@ -44,6 +54,8 @@
     margin-left: 17vw !important
     margin-top: 10px !important
     text-align: right !important
+    @media only screen and (max-width : $pantallamovil)
+        margin-left: 49vw !important
 
 .nohay
     width: 64vw !important
@@ -52,3 +64,12 @@
     color: cornflowerblue !important
     -webkit-box-shadow: 5px 4px 15px 5px rgba(186,186,186,0.63) !important
     box-shadow: 5px 4px 15px 5px rgba(186,186,186,0.63) !important
+    @media only screen and (max-width : $pantallamovil)
+          width: 100vw !important
+
+.personalizado
+    height: 69vh!important
+    overflow: scroll!important
+    @media only screen and (max-width : $pantallamovil)
+        height: 46vh!important
+        overflow: scroll!important

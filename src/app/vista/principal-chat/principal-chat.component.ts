@@ -7,6 +7,8 @@ declare var SockJS;
 
 declare var Stomp;
 
+declare var alertify;
+
 @Component({
   selector: 'app-principal-chat',
   templateUrl: './principal-chat.component.html',
@@ -21,7 +23,8 @@ export class PrincipalChatComponent implements OnInit {
   public url: string = "http://localhost:8080";
   public socket;
   public stompClient;
-  
+
+
 
   public seleccionado = -1;
 
@@ -34,7 +37,7 @@ export class PrincipalChatComponent implements OnInit {
     let usuario = this.usuariosPrd.getUser();
 
 
-
+    type sa = [];
 
     this.socket = new SockJS(this.url + '/conectar');
     this.stompClient = Stomp.over(this.socket);
@@ -42,30 +45,86 @@ export class PrincipalChatComponent implements OnInit {
 
     let cc = this.stompClient;
     let lista = this.lista;
-    
+
     this.stompClient.connect({}, function (frame) {
 
       cc.subscribe("/topic/messages/" + usuario.nickname, function (response) {
         let data = JSON.parse(response.body);
         console.log("Esto se recibe");
-         let obj = {
-           mensaje :data.mensaje,
-           nickname:data.nickname,
-           quien:'otro',
-           paraquien:data.paraquien,
-           visto:false
-         }
+        let obj = {
+          mensaje: data.mensaje,
+          nickname: data.nickname,
+          quien: 'otro',
+          paraquien: data.paraquien,
+          visto: false
+        }
 
-         for(let item of usuariosPrd.getarreglo()){
-           console.log(item.nickname == obj.nickname);
-            if(item.nickname == obj.nickname){
 
+        let encontrado = false;
+
+        for (let item of usuariosPrd.getarreglo()) {
+          console.log(item.nickname == obj.nickname);
+          if (item.nickname == obj.nickname) {
+
+            encontrado = true;
+            item.historial.push(obj);
+            break;
+          }
+        }
+
+
+        if (!encontrado) {//eso quiere decir que ha cambiado el nombre de usuario o algo...
+
+          //Hacemos otra vez la peticion y queda
+          usuariosPrd.getAllUsers().subscribe(datos => {
+
+            let arreglo = usuariosPrd.getarreglo();
+
+
+            for (let item of datos) {
+
+              for (let x of arreglo) {
+                if (x.nickname.includes(item.nickname)) {
+                  item.historial = x.historial;
+                  break;
+                }
+              }
+
+              if (item.historial == undefined) {
+                item.historial = [];
+              }
+
+            }
+
+            for (let x = 0; x < datos.length; x++) {
+              if (datos[x].nickname.includes(usuario.nickname)) {
+                datos.splice(x, 1);
+              }
+            }
+
+
+            arreglo = datos;
+
+            usuariosPrd.setarreglo(arreglo);
+
+            for (let item of usuariosPrd.getarreglo()) {
+              console.log(item.nickname == obj.nickname);
+              if (item.nickname == obj.nickname) {
+
+                encontrado = true;
                 item.historial.push(obj);
                 break;
+              }
             }
-         }
 
-         console.log(usuariosPrd.getarreglo());
+            alertify.success(`Haz recibido un mensaje de ${obj.paraquien}`);
+          });
+
+        } else {
+          alertify.success(`Haz recibido un mensaje de ${obj.paraquien}`);
+        }
+
+
       });
     });
 
@@ -76,24 +135,24 @@ export class PrincipalChatComponent implements OnInit {
   }
 
 
-  public ejecutarTiempoReal(){
+  public ejecutarTiempoReal() {
 
     setTimeout(() => {
       this.lista.ngOnInit();
       this.ejecutarTiempoReal();
     }, 1000);
 
-    
+
   }
 
-  public enviarMensaje(usuario, mensaje,paraquien) {
+  public enviarMensaje(usuario, mensaje, paraquien) {
     let ss = this.usuariosPrd.getUser();
 
 
     this.stompClient.send("/entrada/chat/" + usuario, {}, JSON.stringify({
       nickname: ss.nickname,
       mensaje: mensaje,
-      paraquien:paraquien
+      paraquien: paraquien
     }));
 
 
@@ -103,16 +162,16 @@ export class PrincipalChatComponent implements OnInit {
 
 
   public recibir($event) {
-    this.enviarMensaje($event.usuario, $event.mensaje,$event.paraquien);
+    this.enviarMensaje($event.usuario, $event.mensaje, $event.paraquien);
   }
 
-  public recibirUserSeleccionado($event) {    
+  public recibirUserSeleccionado($event) {
     this.child.recibirChat($event);
 
 
   }
 
- 
+
 
 
 

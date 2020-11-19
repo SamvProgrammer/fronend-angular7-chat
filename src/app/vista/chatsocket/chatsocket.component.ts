@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { UsuariosService } from 'src/app/servicios/usuarios.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { UsuariosService } from 'src/app/servicios/usuarios.service';
 export class ChatsocketComponent implements OnInit {
 
   @Output() eventoFunciones = new EventEmitter();
+
+  
   public chatSeleccionado:boolean = false;
 
   public usuario;
@@ -16,7 +18,22 @@ export class ChatsocketComponent implements OnInit {
   constructor(private usuarioPrd:UsuariosService) { }
 
   ngOnInit(): void {
+    this.scrollToBottom();
   }
+
+  ngAfterViewChecked() {        
+    this.scrollToBottom();        
+} 
+
+scrollToBottom(): void {
+  
+      let xx = document.getElementById("ss");
+      if(xx != undefined || xx != null){
+        xx.scroll({top:6000,behavior:'smooth'});
+      }
+      
+               
+}
 
 
   public enviandoMensaje(mensaje){
